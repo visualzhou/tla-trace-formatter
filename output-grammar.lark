@@ -1,0 +1,14 @@
+states: ("/\\" statement)+
+statement: CNAME "=" value
+value: function_print | function | sequence | word
+function_print: "(" [function_kv_print ("@@" function_kv_print)*] ")"
+function_kv_print: word ":>" value
+function: "[" [function_kv ("," function_kv)*] "]"
+function_kv: word "|->" value
+sequence: "<<" word* ">>"
+word: /\w+/ | NUMBER
+
+%import common.CNAME
+%import common.NUMBER
+%import common.WS
+%ignore WS

@@ -1,0 +1,163 @@
+State 1: <Initial predicate>
+/\ globalCurrentTerm = 0
+/\ log = (N1 :> <<>> @@ N2 :> <<>> @@ N3 :> <<>> @@ N4 :> <<>> @@ N5 :> <<>>)
+/\ state = ( N1 :> Follower @@
+  N2 :> Follower @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 2: <BecomePrimaryByMagic line 134, col 8 to line 137, col 44 of module RaftMongo>
+/\ globalCurrentTerm = 1
+/\ log = (N1 :> <<>> @@ N2 :> <<>> @@ N3 :> <<>> @@ N4 :> <<>> @@ N5 :> <<>>)
+/\ state = ( N1 :> Leader @@
+  N2 :> Follower @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 3: <ClientWrite line 142, col 5 to line 146, col 31 of module RaftMongo>
+/\ globalCurrentTerm = 1
+/\ log = (N1 :> <<[term |-> 1]>> @@ N2 :> <<>> @@ N3 :> <<>> @@ N4 :> <<>> @@ N5 :> <<>>)
+/\ state = ( N1 :> Leader @@
+  N2 :> Follower @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 4: <BecomePrimaryByMagic line 134, col 8 to line 137, col 44 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = (N1 :> <<[term |-> 1]>> @@ N2 :> <<>> @@ N3 :> <<>> @@ N4 :> <<>> @@ N5 :> <<>>)
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 5: <ClientWrite line 142, col 5 to line 146, col 31 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<>> @@
+  N4 :> <<>> @@
+  N5 :> <<>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 6: <AppendOplog line 79, col 5 to line 82, col 31 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<[term |-> 2]>> @@
+  N4 :> <<>> @@
+  N5 :> <<>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 7: <AppendOplog line 79, col 5 to line 82, col 31 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<[term |-> 2]>> @@
+  N4 :> <<[term |-> 2]>> @@
+  N5 :> <<>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 0, term |-> 0] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 8: <AdvanceCommitPoint line 151, col 9 to line 154, col 46 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<[term |-> 2]>> @@
+  N4 :> <<[term |-> 2]>> @@
+  N5 :> <<>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 1, term |-> 2] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 0, term |-> 0] )
+
+State 9: <LearnCommitPointFromSyncSource line 177, col 5 to line 178, col 29 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<[term |-> 2]>> @@
+  N4 :> <<[term |-> 2]>> @@
+  N5 :> <<>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 1, term |-> 2] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 1, term |-> 2] )
+
+State 10: <AppendOplog line 79, col 5 to line 82, col 31 of module RaftMongo>
+/\ globalCurrentTerm = 2
+/\ log = ( N1 :> <<[term |-> 1]>> @@
+  N2 :> <<[term |-> 2]>> @@
+  N3 :> <<[term |-> 2]>> @@
+  N4 :> <<[term |-> 2]>> @@
+  N5 :> <<[term |-> 1]>> )
+/\ state = ( N1 :> Follower @@
+  N2 :> Leader @@
+  N3 :> Follower @@
+  N4 :> Follower @@
+  N5 :> Follower )
+/\ commitPoint = ( N1 :> [index |-> 0, term |-> 0] @@
+  N2 :> [index |-> 1, term |-> 2] @@
+  N3 :> [index |-> 0, term |-> 0] @@
+  N4 :> [index |-> 0, term |-> 0] @@
+  N5 :> [index |-> 1, term |-> 2] )
