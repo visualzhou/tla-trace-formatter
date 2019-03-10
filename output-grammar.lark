@@ -1,11 +1,13 @@
-states: ("/\\" statement)+
-statement: CNAME "=" value
+behavior: state+
+state_name: "State" NUMBER ":" /[^\r\n]+/
+state: state_name ("/\\" variable)+
+variable: CNAME "=" value
 value: function_print | function | sequence | word
 function_print: "(" [function_kv_print ("@@" function_kv_print)*] ")"
 function_kv_print: word ":>" value
 function: "[" [function_kv ("," function_kv)*] "]"
 function_kv: word "|->" value
-sequence: "<<" word* ">>"
+sequence: "<<" value* ">>"
 word: /\w+/ | NUMBER
 
 %import common.CNAME
