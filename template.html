@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+{# <style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+ #}
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+<h1>TLA+ Trace</h1>
+<table class="table">
+{#     <tr>
+        {% for h in header %}
+        <th>{{ h }}</th>
+        {% endfor %}
+    </tr>
+ #}
+    {% for state in states %}
+    <tr class="active"> <th colspan={{ header|length }}> {{ state.name }} </th></tr>
+    <tr>
+        {% for h in header %}
+        <th>{{ h }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% set prve_state = loop.previtem %}
+        {% for k, v in state.variables.items() %}
+        {% if prve_state and prve_state.variables[k] != state.variables[k] %}
+            <td class="danger">{{ v }}</td>
+        {% else %}
+            <td>{{ v }}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+</div>
+</div>
+</body>
