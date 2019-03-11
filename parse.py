@@ -1,6 +1,7 @@
 from lark import Lark, Transformer, v_args
 import jinja2
 import html
+import sys
 
 class State:
     def __init__(self, name, variables):
@@ -61,12 +62,15 @@ def test_html():
     state = State("State 1", {"log": "<here is log>", "term": "terms"})
     generate_html([state, state])
 
-def main():
-    with open("tla.out", "r") as tla_output:
+def parse_and_generate_html(tla_output_file_name):
+    with open(tla_output_file_name, "r") as tla_output:
         text = tla_output.read()
         behavior = parse_output(text)
         generate_html(behavior)
 
-
 if __name__ == "__main__":
-    main()
+    tla_output_file_name = "tla.out"
+    if len(sys.argv) > 1:
+        tla_output_file_name = sys.argv[1]
+    parse_and_generate_html(tla_output_file_name)
+
