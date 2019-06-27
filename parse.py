@@ -3,6 +3,8 @@ import jinja2
 import html
 import sys
 
+LINE_SEP = "<br />"
+
 class State:
     def __init__(self, name, variables):
         self.name = name
@@ -20,19 +22,24 @@ class TreeToStates(Transformer):
     def __init__(self, text):
         self.text = text
 
-    def get_str(self, meta):
-        text = self.text[meta.start_pos:meta.end_pos] if not meta.empty else ""
-        return html.escape(text).replace("\n", "<br />")
-
     @v_args(meta=True)
     def show_text(self, children, meta):
-        return self.get_str(meta)
+        text = self.text[meta.start_pos:meta.end_pos] if not meta.empty else ""
+        return html.escape(text).replace("\n", LINE_SEP)
 
-    # Stop at "value" rule and return the string under it.
-    value = show_text
+    def value(self, children):
+        return children[0]
+
+    function_kv_print = show_text
+    function = show_text
+    word = show_text
+    sequence = show_text
     state_name = show_text
     # behavior is a list of states.
     behavior = list
+
+    def function_print(self, children):
+        return LINE_SEP.join(children)
 
     def state(self, children):
         name = children[0]
