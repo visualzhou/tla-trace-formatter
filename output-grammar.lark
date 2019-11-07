@@ -1,15 +1,17 @@
 behavior: state+
-state_name: "State" NUMBER ":" /[^\r\n]+/
+state_name: "State" NUMBER ":" [/<[^\r\n]+>/]
 state: state_name ("/\\" variable)*
 variable: CNAME "=" value
-value: function_print | function | sequence | word
+value: function_print | function | sequence | word | set
 function_print: "(" [function_kv_print ("@@" function_kv_print)*] ")"
 function_kv_print: word ":>" value
 function: "[" [function_kv ("," function_kv)*] "]"
 function_kv: word "|->" value
+set: "{" sequence_list "}"
 SEQ_LEFT_END: "<<"
 SEQ_RIGHT_END: ">>"
-sequence: SEQ_LEFT_END value? ("," value)* SEQ_RIGHT_END
+sequence_list: [value ("," value)*]
+sequence: SEQ_LEFT_END sequence_list SEQ_RIGHT_END
 word: /\w+/ | NUMBER
 
 %import common.CNAME

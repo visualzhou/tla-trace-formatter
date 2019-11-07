@@ -35,6 +35,7 @@ class TreeToStates(Transformer):
     word = show_text
     sequence = show_text
     state_name = show_text
+    set = show_text
     # behavior is a list of states.
     behavior = list
 
