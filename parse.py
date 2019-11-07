@@ -2,6 +2,7 @@ from lark import Lark, Transformer, v_args
 import jinja2
 import html
 import sys
+import argparse
 
 LINE_SEP = "<br />"
 
@@ -56,13 +57,16 @@ def parse_output(text):
         # print(result)
         return result
 
-def generate_html(states):
+def generate_html(states, kept_variables):
+    kept_variables = kept_variables or states[0].variables.keys()
+
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(searchpath="./"),
         # autoescape=jinja2.select_autoescape(['html', 'xml'])
     )
     template = env.get_template("template.html")
-    generated = template.render(states=states, header=states[0].variables.keys())
+    generated = template.render(states=states,
+        header=[k for k in states[0].variables.keys() if k in kept_variables])
     print(generated)
 
 
@@ -70,15 +74,19 @@ def test_html():
     state = State("State 1", {"log": "<here is log>", "term": "terms"})
     generate_html([state, state])
 
-def parse_and_generate_html(tla_output_file_name):
+def parse_and_generate_html(tla_output_file_name, kept_variables):
     with open(tla_output_file_name, "r") as tla_output:
         text = tla_output.read()
         behavior = parse_output(text)
-        generate_html(behavior)
+        generate_html(behavior, kept_variables)
 
 if __name__ == "__main__":
     tla_output_file_name = "tla.out"
-    if len(sys.argv) > 1:
-        tla_output_file_name = sys.argv[1]
-    parse_and_generate_html(tla_output_file_name)
+    parser = argparse.ArgumentParser(description='Parse TLC output')
+    parser.add_argument('file_name', nargs='?', help='TLC output file name', 
+                        default=tla_output_file_name)
+    parser.add_argument('--keep', nargs='+', help='State variables kept in HTML')
+
+    args = parser.parse_args()
+    parse_and_generate_html(args.file_name, args.keep)
 

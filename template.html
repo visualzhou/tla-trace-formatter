@@ -16,6 +16,7 @@ table, th, td {
 <table class="table">
 {#     <tr>
         {% for h in header %}
+        {%- if h in kept_variables %}{% continue %}{% endif %}
         <th>{{ h }}</th>
         {% endfor %}
     </tr>
@@ -30,10 +31,12 @@ table, th, td {
     <tr>
         {% set prve_state = loop.previtem %}
         {% for k, v in state.variables.items() %}
-        {% if prve_state and prve_state.variables[k] != state.variables[k] %}
-            <td class="danger">{{ v }}</td>
-        {% else %}
-            <td>{{ v }}</td>
+        {%- if k in header %}
+            {% if prve_state and prve_state.variables[k] != state.variables[k] %}
+                <td class="danger">{{ v }}</td>
+            {% else %}
+                <td>{{ v }}</td>
+            {% endif %}
         {% endif %}
         {% endfor %}
     </tr>
