@@ -1,4 +1,5 @@
-behavior: state+
+behavior: _LOG* state+ _LOG*
+_LOG: /(?!State \d+)(?!\/\\).+/
 state_name: "State" NUMBER ":" [/<[^\r\n]+>/]
 state: state_name ("/\\" variable)*
 variable: CNAME "=" value
